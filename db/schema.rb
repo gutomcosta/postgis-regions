@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419203515) do
+ActiveRecord::Schema.define(version: 20180517150853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
   enable_extension "postgis"
 
   create_table "events", id: false, force: :cascade do |t|
@@ -34,9 +33,16 @@ ActiveRecord::Schema.define(version: 20180419203515) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "patients", force: :cascade do |t|
+    t.string "name"
+    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "regions", force: :cascade do |t|
     t.string "name"
-    t.geometry "geom", limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.geometry "geom", limit: {:srid=>4326, :type=>"st_polygon"}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["geom"], name: "index_regions_on_geom"

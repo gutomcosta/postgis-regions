@@ -26,12 +26,36 @@ class Region < ApplicationRecord
       "-22.91523502160402 -43.1791877746582, " \
       "-22.91523502160402 -43.179187774658)))"
 
-    # ring = factory.linear_ring(points)
-    # boundary = factory.polygon(ring)
+    ring = factory.linear_ring(points)
+    boundary = factory.polygon(ring)
 
     region = Region.new(name: "Centro")
-    region.geom = wkt
+    region.geom = boundary
     region.save
+
+    points = [
+      factory.point( -22.911044930859497,-43.23592185974121),
+      factory.point(-22.911044930859497,-43.23592185974121),
+      factory.point(-22.91575740997499,-43.22672942758027),
+      factory.point(-22.9232521187945,-43.220587959881186),
+      factory.point(-22.927584705216464,-43.22457441936763),
+      factory.point(-22.93182304685698,-43.22465125639212),
+      factory.point(-22.934005902735315,-43.23708800920235),
+      factory.point(-22.935843883334535,-43.23989897646351),
+      factory.point(-22.936100834379854,-43.24597157860728),
+      factory.point(-22.931081163935914,-43.25433997758614),
+      factory.point(-22.928715037827565,-43.26589939635613),
+      factory.point(-22.91923414217513,-43.26939030989172),
+      factory.point(-22.914343765067834,-43.2592063775958)
+    ]
+
+    ring = factory.linear_ring(points)
+    boundary = factory.polygon(ring)
+
+    region = Region.new(name: "Tijuca")
+    region.geom = boundary
+    region.save
+
   end
 
 end
